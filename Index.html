@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>UI Demo</title>
+    <link rel="stylesheet" href="dist/css/weui.min.css"/>
+    <link rel="stylesheet" href="dist/css/example.css"/>
+    <link rel="stylesheet" href="dist/css/base.css"/>
+</head>
+<body ontouchstart>
+    <div class="weui_toptips weui_warn" id="uEmpty">用户名不能为空！</div>
+    <div class="weui_toptips weui_warn" id="uType">仅可输入汉字和英文，且不超过4个字或8个字符！</div>
+
+    <div class="weui_toptips weui_warn" id="tEmpty">手机号码不能为空!</div>
+    <div class="weui_toptips weui_warn" id="tType">请输入正确定的手机号！</div>
+
+    <div class="container" id="container">
+
+    </div>
+
+<script type="text/html" id="tpl_home">
+    <div class="hd">
+        <h1 class="page_title">微信抓药</h1>
+        <p class="page_desc">智慧中药房</p>
+    </div>
+    <div class="bd">
+        <div class="weui_grids">
+            <a href="#/zcfjg" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    查看处方价格
+                </p>
+            </a>
+
+            <a href="#/zzlf" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    自助录方
+                </p>
+            </a>
+
+            <a href="#/cAddr" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    选择收货地址
+                </p>
+            </a>
+
+            <a href="#/uAddr" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    修改收货地址
+                </p>
+            </a>
+
+            <a href="#/nAddr" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    新增收货地址
+                </p>
+            </a>
+
+            <a href="#/mInfo" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    我的资料
+                </p>
+            </a>
+
+            <a href="#/mCoupon" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    我的优惠券
+                </p>
+            </a>
+
+
+            <a href="#/gPhotoa" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    拍照录方
+                </p>
+            </a>
+
+            <a href="#/oDetail" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    订单详细
+                </p>
+            </a>
+
+            <a href="#/yDetail" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    药材详细
+                </p>
+            </a>
+
+            <a href="#/mOrder" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    我的订单
+                </p>
+            </a>
+
+            <a href="#/mMsg" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    提交成功提示
+                </p>
+            </a>
+
+            <a href="#/oPro" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    订单进度
+                </p>
+            </a>
+
+            <a href="#/yPrice" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    查看中药价格
+                </p>
+            </a>
+
+            <a href="#/pEg" class="weui_grid">
+                <div class="weui_grid_icon">
+                    <i class="icon icon_panel"></i>
+                </div>
+                <p class="weui_grid_label">
+                    查看拍照示例
+                </p>
+            </a>
+
+        </div>
+        
+    </div>
+</script>
+
+
+<script type="text/html" id="zhyh_zcfjg">
+    <div class="bd">
+        <div class="weui_search_bar" id="search_bar">
+            <form class="weui_search_outer">
+                <div class="weui_search_inner">
+                    <i class="weui_icon_search"></i>
+                    <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required="">
+                    <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+                </div>
+                <label for="search_input" class="weui_search_text" id="search_text">
+                    <i class="weui_icon_search"></i>
+                    <span>搜索</span>
+                </label>
+            </form>
+            <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+        </div>
+        <div class="weui_cells weui_cells_access search_show" id="search_show" style="display: none;">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>实时搜索文本</p>
+                </div>
+            </div>
+        </div>
+            <div class="zh-btn-group text-center">
+                <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">添加</a>
+                <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default weui_icon_clear"> 清空列表</a>                
+            </div>
+
+            <div class="zh-table-area">
+                <table class="zh-table" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>药材列表</th><th>单价</th><th>数量</th><th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>黄芪黄芪黄芪黄芪黄芪黄芪</td>
+                        <td>0.30元</td>
+                        <td><input type="text" class="zh-form-control"> g</td>
+                        <td><a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default weui_icon_clear"></a></td>
+                    </tr>
+                    <tr>
+                        <td>黄芪</td>
+                        <td>0.30元</td>
+                        <td><input type="text" class="zh-form-control"> g</td>
+                        <td><a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default weui_icon_clear"></a></td>
+                    </tr>
+                    <tr>
+                        <td>黄芪</td>
+                        <td>0.30元</td>
+                        <td><input type="text" class="zh-form-control"> g</td>
+                        <td><a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default weui_icon_clear"></a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">副数</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" placeholder="10g"/>
+                    </div>
+                </div>  
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">总价</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        200元
+                    </div>
+                </div>
+            </div>              
+    </div>
+</script>
+
+<script type="text/html" id="zhyh_zzlf">
+    <div class="bd">
+            <div class="weui_cells weui_cells_access">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>收货信息：</p>
+                        <small class=" text-muted">张三 1809999999<br>湖北省武汉市汉阳区龙阳大道特8号</small>
+                    </div><div class="weui_cell_ft"></div>
+                </a>
+            </div>
+
+            <div class="weui_cells weui_cells_access">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>请选择一个收货地址</p>
+                    </div><div class="weui_cell_ft"></div>
+                </a>
+            </div>
+
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">患者姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uname" type="text" placeholder="张三"/>
+                    </div>
+                </div>
+
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        患者性别
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select1">
+                            <option selected="" value="0"></option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </div>  
+                </div>              
+            
+
+
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">患者年龄</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" placeholder="49"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells weui_cells_checkbox">
+                <label class="weui_cell weui_check_label" for="s11">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" class="weui_check" name="checkbox1" id="s11" checked="checked">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>是否煎煮</p>
+                    </div>
+                </label>
+                <label class="weui_cell weui_check_label" for="s12">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" name="checkbox1" class="weui_check" id="s12">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>是否孕妇</p>
+                    </div>
+                </label>
+                <label class="weui_cell weui_check_label" for="s13">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" name="checkbox1" class="weui_check" id="s13">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>是否外用</p>
+                    </div>
+                </label>
+            </div>
+
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea" id="zh_comment_textarea" placeholder="请输入评论" rows="3"></textarea>
+                        <div class="weui_textarea_counter" id="zh_comment_count"><span>0</span>/200</div>
+                    </div>
+                </div>
+            </div>      
+
+            <div class="weui_panel">
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text">
+                        <h4 class="weui_media_title">中药处方</h4>
+
+                        <div id="default_list">
+                            <div class="weui_cells weui_cells_form m0" >
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">药材</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="text" placeholder="如：黄芪"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">单价</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="number" disabled placeholder="输入药材名称后显示"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">数量</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="number" placeholder="如：10"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">副数</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="number" placeholder="如：1（剂/副）"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell weui_cell_select weui_select_after">
+                                    <div class="weui_cell_hd">
+                                        用法
+                                    </div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <select class="weui_select" name="select2">
+                                            <option value="1">常规</option>
+                                            <option value="2">冲泡</option>
+                                            <option value="3">先煎</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="weui_cells weui_cells_form zh_yc_list m0">
+                                <a href="javascript:;" class="weui_yc_opr">
+                                    <i class="weui_icon_cancel"></i>
+                                </a>                            
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd">
+                                        <label class="weui_label_dd mr15">药材</label>                                
+                                    </div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="text" placeholder="如：黄芪"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">单价</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="number" disabled placeholder="输入药材名称后显示"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">数量</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="number" placeholder="如：10"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell">
+                                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">副数</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <input class="weui_input" type="number" placeholder="如：1（剂/副）"/>
+                                    </div>
+                                </div>
+                                <div class="weui_cell weui_cell_select weui_select_after">
+                                    <div class="weui_cell_hd">
+                                        用法
+                                    </div>
+                                    <div class="weui_cell_bd weui_cell_primary">
+                                        <select class="weui_select" name="select2">
+                                            <option value="1">常规</option>
+                                            <option value="2">冲泡</option>
+                                            <option value="3">先煎</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+
+                        <div class="weui_opr_area">
+                            <p class="weui_btn_area">
+                                <a href="javascript:;" class="weui_btn weui_btn_warn addBtn">添加药材</a>
+                            </p>
+                        </div>  
+                        
+                                  
+                </div>
+            </div>  
+
+        <div class="weui_cells">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary zh_list_end">
+                    总金额：
+                </div>
+                <div class="weui_cell_ft">
+                    200 元
+                </div>
+            </div>
+        </div>
+
+        <div class="weui_opr_area">
+            <p class="weui_btn_area">
+                <a href="javascript:;" class="weui_btn weui_btn_primary"  id="submitBtn">提交</a>
+            </p>
+    </div>
+</div>    
+</script>
+
+<script type="text/javascript" id="zhyh_cAddr">
+        <div class="bd">
+            <div class="zh-address">
+                <div class="weui_panel weui_panel_access address-current">
+                    <div class="weui_panel_bd">
+                        <div class="weui_media_box weui_media_text">
+                            <h4 class="weui_media_title">张三</h4>
+                            <p class="weui_media_desc">电话： 18888888888</p>
+                            <p class="weui_media_desc">地址： 湖北省武汉市汉阳区龙阳大道特8号</p>                 
+                        </div>
+                    </div>
+                    <a href="javascript:void(0);" class="weui_panel_ft">编辑</a>
+                </div>
+                <div class="weui_panel weui_panel_access">
+                    <div class="weui_panel_bd">
+                        <div class="weui_media_box weui_media_text">
+                            <h4 class="weui_media_title">张三</h4>
+                            <p class="weui_media_desc">电话： 18888888888</p>
+                            <p class="weui_media_desc">地址： 湖北省武汉市汉阳区龙阳大道特8号</p>                 
+                        </div>
+                    </div>
+                    <a href="#/uAddr" class="weui_panel_ft">编辑</a>
+                </div>
+            </div> 
+
+            <div class="weui_opr_area">
+                <p class="weui_btn_area">
+                    <a  href="#/nAddr"  class="weui_btn weui_btn_primary">新增收货地址</a>
+                </p>
+            </div>   
+     
+        </div>
+</script>
+
+
+<script type="text/javascript" id="zhyh_uAddr">
+        <div class="bd">
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uname" type="text" placeholder="张三"/>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">手机</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uphone" type="number"  pattern="[0-9]*" placeholder="1199999999"/>
+                    </div>
+                </div>  
+
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        省份
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option value="1">湖北省</option>
+                            <option value="2">湖南省</option>
+                            <option value="3">河北省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        城市
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option value="1">武汉市</option>
+                            <option value="2">湖南省</option>
+                            <option value="3">河北省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        区县
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option value="1">武昌区</option>
+                            <option value="2">湖南省</option>
+                            <option value="3">河北省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">地址</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" placeholder="龙阳大道特8号"/>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="weui_opr_area">
+                <p class="weui_btn_area">
+                    <a href="javascript:;" class="weui_btn weui_btn_primary" id="submitBtn">确认修改</a>
+                    <a href="javascript:;" class="weui_btn weui_btn_warn">删除</a>
+                </p>
+            </div>
+        </div>
+</script>
+
+<script type="text/javascript" id="zhyh_nAddr">
+    <div class="bd">
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uname" type="text" placeholder="张三"/>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">手机</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uphone" type="number" pattern="[0-9]*" placeholder="1199999999"/>
+                    </div>
+                </div>  
+
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        省份
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option value="1">湖北省</option>
+                            <option value="2">湖南省</option>
+                            <option value="3">河北省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        城市
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option value="1">武汉市</option>
+                            <option value="2">湖南省</option>
+                            <option value="3">河北省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        区县
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select2">
+                            <option value="1">武昌区</option>
+                            <option value="2">湖南省</option>
+                            <option value="3">河北省</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">地址</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" placeholder="龙阳大道特8号"/>
+                    </div>
+                </div>  
+            </div>
+            <div class="weui_opr_area">
+                <p class="weui_btn_area">
+                    <a href="javascript:;" class="weui_btn weui_btn_primary" id="submitBtn">确认</a>
+                </p>
+            </div>
+
+    </div>
+</script>
+
+
+<script type="text/javascript" id="zhyh_mInfo">
+        <div class="bd">
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uname" type="text" placeholder="张三"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        性别
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select1">
+                            <option selected="" value="0"></option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </div>  
+                </div>          
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">电话</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uphone" type="number" placeholder="109999999999"/>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr15"><label class="weui_label_dd">生日</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="date" value="" placeholder="1900-01-01"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_opr_area">
+                <p class="weui_btn_area">
+                    <a href="javascript:;" class="weui_btn weui_btn_primary" id="submitBtn">确认修改</a>
+                </p>
+            </div>
+        </div>
+</script>
+
+<script type="text/javascript" id="zhyh_mCoupon">
+    <div class="bd">
+        <div class="weui_cells_title">有效期：2015-12-19 至 2015-12-31</div>
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_bd">
+                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                    <div class="weui_media_hd weui_media_cooper">
+                        9折
+                    </div>
+                    <div class="weui_media_bd text-right">
+                        <h4 class="weui_media_title">使用该券可享受药材价格9折优惠</h4>
+                        <p class="weui_media_desc">不可抵扣代煎费和快递费</p>
+                    </div>
+                </a>
+            </div>
+        </div>  
+
+        <div class="weui_cells_title">有效期：2015-12-19 至 2015-12-31</div>
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_bd">
+                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                    <div class="weui_media_hd weui_media_cooper">
+                        100元
+                    </div>
+                    <div class="weui_media_bd text-right">
+                        <h4 class="weui_media_title">使用该券可享受药材价格9折优惠</h4>
+                        <p class="weui_media_desc">不可抵扣代煎费和快递费</p>
+                    </div>
+                </a>
+            </div>
+        </div>  
+
+        <div class="weui_cells_title">已过期</div>
+        <div class="weui_panel weui_panel_access">
+            <div class="weui_panel_bd">
+                <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                    <div class="weui_media_hd weui_media_cooper weui_media_cooper_ed">
+                        10元
+                    </div>
+                    <div class="weui_media_bd text-right">
+                        <h4 class="weui_media_title">使用该券可抵扣订单总金额10元</h4>
+                        <p class="weui_media_desc">满100可使用</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/javascript" id="zhyh_gPhotoa">
+    <div class="bd">
+            <div class="weui_cells weui_cells_access">
+                <a class="weui_cell" href="javascript:;">
+
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>收货信息：</p>
+                        <small class=" text-muted">张三 1809999999<br>湖北省武汉市汉阳区龙阳大道特8号</small>
+                    </div><div class="weui_cell_ft"></div>
+                </a>
+            </div>
+            <div class="weui_cells weui_cells_access">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>请选择一个收货地址</p>
+                    </div><div class="weui_cell_ft"></div>
+                </a>
+            </div>   
+            <div class="weui_cells weui_cells_form">
+
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">患者姓名</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input uname" name="uname" type="text" placeholder="张三"/>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        患者性别
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select class="weui_select" name="select1">
+                            <option selected="" value="0"></option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </div>  
+                </div>  
+
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label_dd mr15">患者年龄</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="number" placeholder="49"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells weui_cells_checkbox">
+                <label class="weui_cell weui_check_label" for="s11">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" class="weui_check" name="checkbox1" id="s11" checked="checked">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>是否煎煮</p>
+                    </div>
+                </label>
+                <label class="weui_cell weui_check_label" for="s12">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" name="checkbox1" class="weui_check" id="s12">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>是否孕妇</p>
+                    </div>
+                </label>
+                <label class="weui_cell weui_check_label" for="s13">
+                    <div class="weui_cell_hd">
+                        <input type="checkbox" name="checkbox1" class="weui_check" id="s13">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>是否外用</p>
+                    </div>
+                </label>
+            </div>
+
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea class="weui_textarea" id="zh_comment_textarea" placeholder="请输入评论" rows="3"></textarea>
+                        <div class="weui_textarea_counter" id="zh_comment_count"><span>0</span>/200</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_uploader">
+                            <div class="weui_uploader_hd weui_cell">
+                                <div class="weui_cell_bd weui_cell_primary"><a href="#/pEg">查看拍照示例</a></div>
+                            </div>
+                            <div class="weui_uploader_bd">
+                                <ul class="weui_uploader_files">
+                                    <li class="weui_uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
+                                    <li class="weui_uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
+                                    <li class="weui_uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)"></li>
+                                    <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
+                                        <div class="weui_uploader_status_content">
+                                            <i class="weui_icon_warn"></i>
+                                        </div>
+                                    </li>
+                                    <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
+                                        <div class="weui_uploader_status_content">50%</div>
+                                    </li>
+                                </ul>
+                                <div class="weui_uploader_input_wrp">
+                                    <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>    
+            
+            <div class="weui_opr_area">
+                <p class="weui_btn_area">
+                    <a href="javascript:;" class="weui_btn weui_btn_primary" id="submitBtn">提交</a>
+                </p>
+            </div>                                    
+
+
+    </div>
+</script>
+
+<script type="text/javascript" id="zhyh_oDetail">
+    <div class="bd">
+            <div class="weui_cells_title">订单号:DJ151217678611</div>     
+            <div class="weui_cells">
+                <div class="weui_cell">
+                      <div class="weui_cell_bd weui_cell_primary">
+                        <p>下单时间: 2015-12-17 15:30</p>
+                      </div>                    
+                    <div class="weui_cell_ft cD0021B">
+                        未支付
+                    </div>       
+                </div>
+            </div>     
+
+            <div class="weui_cells_title">收货信息</div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">姓名</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        张三
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <div class="weui_label">电话</div>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        18888888888
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <div class="weui_label">地址</div>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        湖北省武汉市汉阳区龙阳大道特8号
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui_panel">
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text zh_media_box">
+                        <ul>
+                            <li>患者姓名：张三</li>
+                            <li>患者性别：男</li>
+                            <li>是否孕妇：否</li>
+                            <li>是否外用：否</li>
+                        </ul>
+                        <p>发票抬头：</p>                        
+                    </div>
+                </div>
+            </div>  
+
+
+            <div class="padding">
+              <div class="weui_cells_title">中药处方</div>
+              <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:40px;margin-right:5px;display:block"></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>黄芪</p>
+                        <small class="text-muted">15g 用法：先煎</small>
+                    </div>
+                    <div class="weui_cell_ft">￥1.50</div>
+                </div>
+                <div class="weui_cell">
+                  <div class="weui_cell_bd weui_cell_primary">
+                    <p>剂量</p>
+                  </div>
+                  <div class="weui_cell_ft">
+                    X7
+                  </div>
+                </div>
+              </div>
+            </div>   
+
+            <div class="padding">
+              <div class="weui_cells">
+                <div class="weui_cell">
+                  <div class="weui_cell_bd weui_cell_primary">
+                    <p>处方总价</p>
+                  </div>
+                  <div class="weui_cell_ft">
+                    ￥17.50
+                  </div>
+                </div>
+                <div class="weui_cell">
+                  <div class="weui_cell_bd weui_cell_primary">
+                    <p>代煎费</p>
+                  </div>
+                  <div class="weui_cell_ft">
+                    ￥14
+                  </div>
+                </div>
+                <div class="weui_cell">
+                  <div class="weui_cell_bd weui_cell_primary">
+                    <p>快递费</p>
+                  </div>
+                  <div class="weui_cell_ft">
+                    ￥10.00
+                  </div>
+                </div>
+
+
+              </div>
+            </div>  
+
+        <div class="weui_cells_title">优惠券</div>
+        <div class="weui_cells weui_cells_checkbox">
+            <label class="weui_cell weui_check_label" for="s11">
+                <div class="weui_cell_hd">
+                    <input type="checkbox" class="weui_check" name="checkbox1" id="s11" checked="checked">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>使用该券可享受药材价格9折优惠</p>
+                </div>
+            </label>
+        </div>        
+
+        <div class="weui_cells">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary zh_list_end">
+                    总金额：
+                </div>
+                <div class="weui_cell_ft">
+                    200 元
+                </div>
+            </div>
+        </div>
+
+        <div class="weui_opr_area">
+            <p class="weui_btn_area">
+                <a href="javascript:;" class="weui_btn weui_btn_primary">确定</a>
+                <a href="javascript:;" class="weui_btn weui_btn_default">取消</a>
+            </p>
+        </div>  
+
+
+    </div>
+</script>
+
+
+<script type="text/javascript" id="zhyh_yDetail">
+    <div class="bd">
+        <div class="zh-detail">
+            <ul class="img-list">
+                <li><img src="images/u28.jpg"></li>
+            </ul>
+
+            <article class="weui_article zh_article">
+                <h1>当归<span class="order-status cD0021B">￥0.30/g</span></h1>
+                    <section>
+                        【药材ID】SPI7HMBXPIS<br>
+                        【规格】统片<br>
+                        【性状】本品呈纺锤形，多5～6个簇生，形似猫爪，长3～10mm，直径2～3mm，顶端有黄褐色残茎或茎痕。表面黄褐色或灰黄色，久存色泽变深，微有纵皱纹，并有点状须根痕和残留须根。质坚实，断面类白色或黄白色，空心或实心，粉性。气微，味微甘。
+                    </section>  
+            </article>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript" id="zhyh_mOrder">
+        <div class="bd">
+            <div class="weui_panel">
+                <div class="weui_panel_hd">订单号：DJ151217678611<br>下单时间： 2015-12-17 15：30<br>  总金额：￥31.50<span class="order-status cD0021B">未支付</span></div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text zh_media_box">
+                        <ul>
+                            <li>患者姓名：张三</li>
+                            <li>患者性别：男</li>
+                            <li>是否孕妇：否</li>
+                            <li>是否外用：否</li>
+                        </ul>
+                        <p>发票抬头：</p>                        
+                    </div>
+                </div>
+                <div class="weui_panel_ft zh-btn-group3 text-right">
+                    <a href="#" class="weui_btn weui_btn_mini weui_btn_default">取消</a>
+                    <a href="#" class="weui_btn weui_btn_mini weui_btn_default">详细</a>
+                    <a href="#" class="weui_btn weui_btn_mini weui_btn_primary">支付</a>
+                </div>
+            </div>  
+
+            <div class="weui_panel">
+                <div class="weui_panel_hd">订单号：DJ151217678611<br>下单时间： 2015-12-17 15：30<br>  总金额：￥31.50<span class="order-status text-green">已完成</span></div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text zh_media_box">
+                        <ul>
+                            <li>患者姓名：张三</li>
+                            <li>患者性别：男</li>
+                            <li>是否孕妇：否</li>
+                            <li>是否外用：否</li>
+                        </ul>
+                        <p>发票抬头：</p>                        
+                    </div>
+                </div>
+                <div class="weui_panel_ft zh-btn-group3 text-right">
+                    <a href="#" class="weui_btn weui_btn_mini weui_btn_default">进度</a>
+                    <a href="#" class="weui_btn weui_btn_mini weui_btn_default">详细</a>
+                </div>
+            </div>
+
+            <div class="weui_panel">
+                <div class="weui_panel_hd">订单号：DJ151217678611<br>下单时间： 2015-12-17 15：30<br>  总金额：￥31.50<span class="order-status text-muted">未支付</span></div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text zh_media_box">
+                        <ul>
+                            <li>患者姓名：张三</li>
+                            <li>患者性别：男</li>
+                            <li>是否孕妇：否</li>
+                            <li>是否外用：否</li>
+                        </ul>
+                        <p>发票抬头：</p>                        
+                    </div>
+                </div>
+                <div class="weui_panel_ft text-right text-muted">已取消</div>        
+            </div>         
+   
+    </div>
+</script>
+
+
+<script type="text/javascript" id="zhyh_mMsg">
+    <div class="bd">
+        <div class="weui_msg">
+            <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+            <div class="weui_text_area">
+                <h2 class="weui_msg_title">提交成功</h2>
+                <p class="weui_msg_desc">页面将在5秒之后跳转至订单详情页，<br>如果您是拍照上传处方需要人工审核后才能支付，<br>
+                <a href="＃">点击这里立即跳转</a></p>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript" id="zhyh_oPro">
+    <div class="bd">
+
+            <div class="weui_panel">
+                <div class="weui_panel_hd">订单号：DJ151217678611<br>下单时间： 2015-12-17 15：30</div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text">
+                        <h4 class="weui_media_title">收货信息</h4>
+                        <p class="weui_media_desc">张三  18888888888</p>
+                        <p class="weui_media_desc">地址： 湖北省武汉市汉阳区龙阳大道特8号</p>
+                    </div>
+                </div>
+            </div>  
+            <div class="weui_panel">
+                <div class="weui_panel_hd">
+                    <p>订单进度：已发货</p>
+                    <p>物流公司：顺丰快递</p>
+                    <p>运单号码：31312454666</p>
+                </div>
+                <div class="weui_panel_bd">
+                    <div class="weui_media_box weui_media_text">
+                        <h4 class="weui_media_title">物流跟踪：</h4>
+                        <p class="weui_media_desc">2015-12-15 20:35:52 澄海 的 卢晓源 已揽件</p>
+                        <p class="weui_media_desc">2015-12-16 00:19:57 快件已从 澄海 发出</p>
+                        <p class="weui_media_desc">2015-12-16 03:41:29 快件到达 潮汕中心</p>
+                        <p class="weui_media_desc">2015-12-16 03:44:40 快件已从 潮汕中心 发出</p>
+                    </div>
+                </div>
+            </div>              
+   
+    </div>
+</script>
+
+<script type="text/javascript" id="zhyh_yPrice">
+    <div class="bd">
+    <div class="search-page">
+        <div class="search-page-container">
+            <p class="text-center"><img src="images/u15.png" height="129"></p>
+            <h1 class="text-center">未来中药房</h1>
+            <p class="text-center">严标准煎好药  用良心做服务</p>
+            <div class="search-area">
+                <div class="input-group"> 
+                    <input type="text" class="zh-form-control" placeholder="请输入草药名或拼音、拼音首字母"> 
+                    <span class="input-group-btn"> <button class="weui_btn weui_btn_warn" type="button">查询药材价格</button> </span>
+                </div>
+            </div>
+        </div> 
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript" id="zhyh_pEg">
+    <div class="bd">
+        <p><img src="images/u17.png" class="zh-response-image"></p>
+        <p><img src="images/u19.png" class="zh-response-image"></p>
+        <p><img src="images/u21.png" class="zh-response-image"></p>
+    </div> 
+</script>
+
+    <script src="dist/js/zepto.min.js"></script>
+    <script src="dist/js/router.min.js"></script>
+    <!--<script src="dist/js/example.js"></script>-->
+    <script src="dist/js/weui.js"></script>
+    <script src="dist/js/zhyh.js"></script>
+</body>
+</html>
